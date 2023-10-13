@@ -1,0 +1,14 @@
+.login-body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+form a {
+  text-align: center;
+  text-decoration: underline;
+}
+
+footer {
+  margin-top: auto;
+}
