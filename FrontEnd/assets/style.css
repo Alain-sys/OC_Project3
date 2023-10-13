@@ -134,6 +134,7 @@ body {
   font-family: 'Work Sans';
   font-size: 14px;
 }
+
 header {
   display: flex;
   justify-content: space-between;
@@ -219,9 +220,11 @@ li:hover {
   border-radius: 60px;
   font-size: 16px;
   color: #1d6154;
+  transition: 0.3s ease;
 }
 
-.filter-btn:hover {
+.filter-btn:hover,
+.filter-btn.active {
   background-color: #1d6154;
   color: white;
   cursor: pointer;
