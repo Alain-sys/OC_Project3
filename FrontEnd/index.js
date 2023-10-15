@@ -69,3 +69,38 @@ fetch('http://localhost:5678/api/categories')
   .catch((error) => {
     console.error("Une erreur s'est produite :", error);
   });
+
+//login
+document.getElementById('login-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  const formData = {
+    email: email,
+    password: password,
+  };
+
+  fetch('http://localhost:5678/api/users/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('La requête a échoué');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      localStorage.setItem('user', JSON.stringify(data));
+      window.location.href = '../index.html';
+    })
+    .catch((error) => {
+      console.error("Une erreur s'est produite :", error);
+    });
+});
