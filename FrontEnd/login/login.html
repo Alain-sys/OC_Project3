@@ -30,8 +30,10 @@
         <form id="login-form" action="#" method="post">
           <label for="email">Email</label>
           <input type="email" name="email" id="email" />
+          <span class="input-error email-error">Email invalide</span>
           <label for="password">Mot de passe</label>
           <input type="text" name="password" id="password" />
+          <span class="input-error password-error">Mot de passe invalide</span>
           <input type="submit" value="Se connecter" />
           <a href="#">Mot de passe oublié</a>
         </form>
@@ -45,5 +47,6 @@
       </nav>
     </footer>
     <script src="../index.js"></script>
+    <script src="./login.js"></script>
   </body>
 </html>

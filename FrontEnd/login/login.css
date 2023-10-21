@@ -4,11 +4,51 @@
   height: 100vh;
 }
 
+header {
+  width: 100%;
+  max-width: 1140px;
+  display: flex;
+  justify-content: space-between;
+  margin: 50px auto 140px auto;
+}
+
+main {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 auto 0;
+}
+
+#contact {
+  max-width: 1140px;
+}
+
+form {
+  max-width: 379px;
+  margin: 0 auto;
+}
+
 form a {
   text-align: center;
   text-decoration: underline;
 }
 
-footer {
+.input-error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.email-error,
+.password-error {
+  display: none;
+}
+
+.email-error.active,
+.password-error.active {
+  display: block;
+}
+
+.email footer {
   margin-top: auto;
 }

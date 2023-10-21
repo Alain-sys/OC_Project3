@@ -1,5 +1,28 @@
 const gallery = document.querySelector('.gallery');
 const filterContainer = document.querySelector('.filter-container');
+/*LOGIN BTN start*/
+const loginBtn = document.querySelector('.menu__login');
+const logoutBtn = document.querySelector('.menu__logout');
+const banner = document.querySelector('.banner');
+const editBtn = document.querySelector('.project-headline__edit-btn');
+
+const user = JSON.parse(localStorage.getItem('user'));
+console.log('test', user);
+
+if (user) {
+  logoutBtn.classList.add('active');
+  banner.classList.add('active');
+  editBtn.classList.add('active');
+} else {
+  loginBtn.classList.add('active');
+  banner.classList.remove('active');
+  editBtn.classList.remove('active');
+}
+
+logoutBtn.addEventListener('click', () => {
+  localStorage.removeItem('user');
+});
+/*LOGIN BTN end*/
 
 let projectData; // Projects of the API/works here for uses in other functions
 
@@ -69,38 +92,3 @@ fetch('http://localhost:5678/api/categories')
   .catch((error) => {
     console.error("Une erreur s'est produite :", error);
   });
-
-//login
-document.getElementById('login-form').addEventListener('submit', function (e) {
-  e.preventDefault();
-
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  const formData = {
-    email: email,
-    password: password,
-  };
-
-  fetch('http://localhost:5678/api/users/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('La requête a échoué');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      localStorage.setItem('user', JSON.stringify(data));
-      window.location.href = '../index.html';
-    })
-    .catch((error) => {
-      console.error("Une erreur s'est produite :", error);
-    });
-});

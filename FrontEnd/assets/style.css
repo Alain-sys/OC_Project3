@@ -129,10 +129,10 @@ table {
 }
 /** end reset css**/
 body {
-  max-width: 1140px;
   margin: auto;
   font-family: 'Work Sans';
   font-size: 14px;
+  background-color: #fffef8;
 }
 
 a {
@@ -140,11 +140,30 @@ a {
   color: #000;
 }
 
-header {
+.banner {
+  display: none;
+  padding: 20px 0;
+  justify-content: center;
+  gap: 10px;
+  background-color: #000;
+}
+
+.banner.active {
+  display: flex;
+}
+
+.banner__icon,
+.banner__text {
+  color: #ffffff;
+}
+
+.head-content {
+  max-width: 1140px;
   display: flex;
   justify-content: space-between;
-  margin: 50px 0;
+  margin: 50px auto;
 }
+
 section {
   margin: 50px 0;
 }
@@ -188,9 +207,26 @@ nav a:hover {
 li:hover {
   color: #b1663c;
 }
+
+.menu__login,
+.menu__logout {
+  display: none;
+}
+
+.menu__login.active,
+.menu__logout.active {
+  display: block;
+}
+
+main {
+  max-width: 1140px;
+  margin: auto;
+}
+
 #introduction {
   display: flex;
   align-items: center;
+  margin: 140px 0;
 }
 #introduction figure {
   flex: 1;
@@ -211,8 +247,32 @@ li:hover {
 #introduction p {
   margin-bottom: 0.5em;
 }
-#portfolio h2 {
+
+.project-headline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.project-headline__title {
   text-align: center;
+}
+
+.project-headline__edit-btn {
+  display: none;
+  gap: 10px;
+  background-color: transparent;
+  border: 0;
+}
+
+.project-headline__edit-btn.active {
+  display: flex;
+}
+
+.project-headline__edit-btn:hover {
+  color: #b1663c;
+  cursor: pointer;
 }
 
 .filter-container {
@@ -293,8 +353,13 @@ input[type='submit'] {
   border-radius: 60px;
 }
 
+input[type='submit']:hover {
+  cursor: pointer;
+}
+
 footer nav ul {
   display: flex;
   justify-content: flex-end;
-  margin: 2em;
+  padding: 2em;
+  background-color: #ffffff;
 }
