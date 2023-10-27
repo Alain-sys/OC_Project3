@@ -1,3 +1,5 @@
+import { modalProjectsTest } from './components/modal.js';
+
 const gallery = document.querySelector('.gallery');
 const filterContainer = document.querySelector('.filter-container');
 /*LOGIN BTN start*/
@@ -5,6 +7,7 @@ const loginBtn = document.querySelector('.menu__login');
 const logoutBtn = document.querySelector('.menu__logout');
 const banner = document.querySelector('.banner');
 const editBtn = document.querySelector('.project-headline__edit-btn');
+export let projectData; // Projects of the API/works here for uses in other functions
 
 const user = JSON.parse(localStorage.getItem('user'));
 console.log('test', user);
@@ -24,9 +27,7 @@ logoutBtn.addEventListener('click', () => {
 });
 /*LOGIN BTN end*/
 
-let projectData; // Projects of the API/works here for uses in other functions
-
-function projects(btnId) {
+function galleryProjects(btnId) {
   const projectFiltered = projectData.reduce((result, item) => {
     if (item.category.id === btnId) {
       result += `
@@ -48,47 +49,59 @@ function projects(btnId) {
   gallery.innerHTML = projectFiltered;
 }
 
-fetch('http://localhost:5678/api/works')
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('La requête a échoué');
-    }
-    return response.json();
-  })
-  .then((responseData) => {
-    projectData = responseData;
-    projects();
-  })
-  .catch((error) => {
-    console.error("Une erreur s'est produite :", error);
-  });
-fetch('http://localhost:5678/api/categories')
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('La requête a échoué');
-    }
-    return response.json();
-  })
-  .then((responseData) => {
-    responseData.map((item) => {
-      filterContainer.innerHTML += `
+async function fetchProjects() {
+  fetch('http://localhost:5678/api/works')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('La requête a échoué');
+      }
+      return response.json();
+    })
+    .then((responseData) => {
+      projectData = responseData;
+      galleryProjects();
+      modalProjectsTest();
+    })
+    .catch((error) => {
+      console.error("Une erreur s'est produite :", error);
+    });
+}
+fetchProjects();
+
+function toto(responseData) {
+  responseData.map((item) => {
+    filterContainer.innerHTML += `
         <button class="filter-btn" type="button" data-id="${item.id}">${item.name}</button>
       `;
-    });
-
-    filterBtn = document.querySelectorAll('.filter-btn');
-    filterBtn.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        console.log('btnlist', btn);
-        filterBtn.forEach((btn) => {
-          btn.classList.remove('active');
-        });
-        btn.classList.add('active');
-        const btnId = parseInt(e.target.dataset.id, 10);
-        projects(btnId);
-      });
-    });
-  })
-  .catch((error) => {
-    console.error("Une erreur s'est produite :", error);
   });
+  const filterBtn = document.querySelectorAll('.filter-btn');
+  filterBtn.forEach((btn, id) => {
+    btn.addEventListener('click', (e) => {
+      console.log('btnlist', btn);
+      filterBtn.forEach((btn) => {
+        btn.classList.remove('active');
+      });
+      btn.classList.add('active');
+      const btnId = parseInt(e.target.dataset.id, 10);
+      galleryProjects(btnId);
+    });
+  });
+}
+
+function fetchCategories() {
+  fetch('http://localhost:5678/api/categories')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('La requête a échoué');
+      }
+      return response.json();
+    })
+    .then((responseData) => {
+      toto(responseData);
+    })
+    .catch((error) => {
+      console.error("Une erreur s'est produite :", error);
+    });
+}
+
+fetchCategories();

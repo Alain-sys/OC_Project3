@@ -47,6 +47,15 @@
       <section id="portfolio">
         <div class="project-headline">
           <h2 class="project-headline__title">Mes Projets</h2>
+          <dialog class="modal">
+            <button type="button" class="modal--close">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3>Galerie photo</h3>
+            <div class="modal-projects"></div>
+            <span></span>
+            <button type="button" class="filter-btn">Ajouter une photo</button>
+          </dialog>
           <button type="button" class="project-headline__edit-btn">
             <i class="fa-regular fa-pen-to-square projects__icon"></i>
             modifier
@@ -79,6 +88,7 @@
         </ul>
       </nav>
     </footer>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="./components/modal.js"></script>
   </body>
 </html>
