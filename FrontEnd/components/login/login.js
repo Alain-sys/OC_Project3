@@ -1,3 +1,8 @@
+function isValidEmail(email) {
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  return emailPattern.test(email);
+}
+
 document.getElementById('login-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -39,8 +44,3 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     emailError.classList.add('active');
   }
 });
-
-function isValidEmail(email) {
-  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  return emailPattern.test(email);
-}

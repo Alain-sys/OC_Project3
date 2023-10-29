@@ -1,8 +1,8 @@
-import { projectData } from '../index.js';
+import { projectData } from '../../index.js';
 
 const modal = document.querySelector('.modal');
 const dialogClose = document.querySelector('.modal--close');
-const modalProjects = document.querySelector('.modal-projects');
+const modalProjects = document.querySelector('.modal-gallery');
 const editBtn = document.querySelector('.project-headline__edit-btn');
 
 editBtn.addEventListener('click', () => {
