@@ -54,29 +54,40 @@
             modifier
           </button>
           <dialog class="modal">
-            <button type="button" class="modal--close">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="modal-content">
+            <div class="modal__btn--cancel">
+              <button type="button" class="modal--prev"><i class="fa-solid fa-arrow-left"></i></button>
+              <button type="button" class="modal--close">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <div class="modal-content-gallery active">
               <h3 class="modal-content__title">Galerie photo</h3>
               <div class="modal-gallery"></div>
-              <button type="button" class="filter-btn">Ajouter une photo</button>
+              <button class="modal-content__btn modal--add-project">Ajouter une photo</button>
             </div>
-            <form class="modal-content--add-project" action="">
+            <form class="modal-content--new-project" action="">
               <h3 class="modal-content__title">Ajout photo</h3>
-              <div>
-                <i> </i>
-                <label for=""> </label>
-                <input type="file" />
-                <p>jpg, png : 4mo max</p>
+              <div class="picture-container">
+                <i class="fa-regular fa-image picture-container__icon"></i>
+                <label for="picture-container__select-image" class="picture-container__label"> + Ajouter photo</label>
+                <input type="file" id="picture-container__select-image" class="picture-container__input" />
+                <p class="picture-container__text">jpg, png : 4mo max</p>
               </div>
-              <div>
-                <label for=""></label>
-                <input type="text" />
-                <label for=""></label>
-                <input type="text" />
+              <div class="new-project-description">
+                <div class="new-project-input-container">
+                  <label for="title" class="new-project-description__label">Titre</label>
+                  <input type="text" id="title" class="new-project-description__input" />
+                </div>
+                <div class="new-project-input-container">
+                  <label for="categories-select" class="new-project-description__label">Catégorie</label>
+                  <select name="categories" id="categories-select" class="new-project-description__input">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
               </div>
-              <input type="submit" />
+              <button type="submit" class="modal-content__btn modal--add-new-project">Valider</button>
             </form>
           </dialog>
         </div>

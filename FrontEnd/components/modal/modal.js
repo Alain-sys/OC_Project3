@@ -1,9 +1,27 @@
+// @ts-nocheck
 import { projectData } from '../../index.js';
 
 const modal = document.querySelector('.modal');
 const dialogClose = document.querySelector('.modal--close');
-const modalProjects = document.querySelector('.modal-gallery');
+const projects = document.querySelector('.modal-gallery');
 const editBtn = document.querySelector('.project-headline__edit-btn');
+const btnAddProject = document.querySelector('.modal--add-project');
+const modalContentGallery = document.querySelector('.modal-content-gallery');
+const newProjectContent = document.querySelector('.modal-content--new-project');
+const modalPrevBtn = document.querySelector('.modal--prev');
+
+btnAddProject.addEventListener('click', (e) => {
+  e.preventDefault();
+  modalContentGallery.classList.remove('active');
+  modalPrevBtn.classList.add('active');
+  newProjectContent.classList.add('active');
+});
+
+modalPrevBtn.addEventListener('click', () => {
+  modalContentGallery.classList.add('active');
+  modalPrevBtn.classList.remove('active');
+  newProjectContent.classList.remove('active');
+});
 
 editBtn.addEventListener('click', () => {
   modal.showModal();
@@ -27,7 +45,7 @@ modal.addEventListener('click', (e) => {
 
 export function modalProjectsTest() {
   projectData.map((item) => {
-    modalProjects.innerHTML += `
+    projects.innerHTML += `
       <div class="modal-card">
         <button class="modal-card--delete">delete</button>
         <img src="${item.imageUrl}" alt="${item.title}">
