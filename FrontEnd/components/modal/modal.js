@@ -24,6 +24,8 @@ modalPrevBtn.addEventListener('click', () => {
 });
 
 editBtn.addEventListener('click', () => {
+  newProjectContent.classList.remove('active');
+  modalContentGallery.classList.add('active');
   modal.showModal();
 });
 
