@@ -66,3 +66,42 @@ export function modalProjectsTest() {
 function deleteWorks(id) {
   console.log(id);
 }
+
+const form = document.querySelector('.modal-content--new-project');
+const title = document.getElementById('title');
+const image = document.getElementById('picture-container__select-image');
+const category = document.getElementById('categories-select');
+const user = JSON.parse(localStorage.getItem("user"));
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+console.log(image)
+console.log(user.token)
+
+const formData = new FormData();
+formData.append('title', title.value);
+formData.append('category', category.value);
+formData.append('image', image.files[0]);
+
+// const newProject = {
+//   title: title.value,
+//   category: category.value,
+//   image: image.files[0],
+// }
+  
+  console.log('formData', formData)
+fetch("http://localhost:5678/api/works", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${user.token}`,
+  },
+  body: formData,
+  // body: newProject,
+})
+  .then(data => {
+    console.log('Réponse du serveur:', data);
+  })
+  .catch(error => {
+    console.error("Une erreur s'est produite :", error);
+  });
+
+});
