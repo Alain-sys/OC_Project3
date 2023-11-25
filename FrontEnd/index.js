@@ -2,7 +2,6 @@ import { modalProjectsTest } from './components/modal/modal.js';
 
 const gallery = document.querySelector('.gallery');
 export let projectData; // Projects of the API/works here for uses in other functions
-
 export function galleryProjects(btnId) {
   const projectFiltered = projectData.reduce((result, item) => {
     if (item.category.id === btnId) {
@@ -25,7 +24,7 @@ export function galleryProjects(btnId) {
   gallery.innerHTML = projectFiltered;
 }
 
-function fetchProjects() {
+export function fetchProjects() {
   fetch('http://localhost:5678/api/works')
     .then((response) => {
       if (!response.ok) {

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { projectData } from '../../index.js';
+import { fetchProjects, projectData } from '../../index.js';
 
 const modal = document.querySelector('.modal');
 const dialogClose = document.querySelector('.modal--close');
@@ -46,62 +46,74 @@ modal.addEventListener('click', (e) => {
 });
 
 export function modalProjectsTest() {
-  projectData.map((item) => {
-    projects.innerHTML += `
+  if (projectData.length > 0) {
+    projects.innerHTML = '';
+    projectData.map((item) => {
+      projects.innerHTML += `
       <div class="modal-card">
-        <button class="modal-card--delete">delete</button>
+        <button class="modal-card--delete" data-id="${item.id}">delete</button>
         <img src="${item.imageUrl}" alt="${item.title}">
       </div>
     `;
-  });
 
-  const BtnDeleteCard = document.querySelectorAll('.modal-card--delete');
-  BtnDeleteCard.forEach((btn, id) => {
-    btn.addEventListener('click', (e) => {
-      deleteWorks(id);
+      /****************** Delete project */
+      const BtnDeleteCard = document.querySelectorAll('.modal-card--delete');
+      BtnDeleteCard.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const projectId = e.target.dataset.id;
+          deleteWorks(projectId);
+        });
+      });
     });
-  });
+  }
 }
 
 function deleteWorks(id) {
-  console.log(id);
+  fetch(`http://localhost:5678/api/works/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  })
+    .then((responseData) => {
+      console.log('Réponse du serveur:', responseData);
+      fetchProjects();
+    })
+    .catch((error) => {
+      console.error("Une erreur s'est produite :", error);
+    });
 }
 
+/****************** add project */
 const form = document.querySelector('.modal-content--new-project');
 const title = document.getElementById('title');
 const image = document.getElementById('picture-container__select-image');
 const category = document.getElementById('categories-select');
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem('user'));
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-console.log(image)
-console.log(user.token)
+  console.log(image);
+  console.log(user.token);
 
-const formData = new FormData();
-formData.append('title', title.value);
-formData.append('category', category.value);
-formData.append('image', image.files[0]);
+  const formData = new FormData();
+  formData.append('title', title.value);
+  formData.append('category', category.value);
+  formData.append('image', image.files[0]);
 
-// const newProject = {
-//   title: title.value,
-//   category: category.value,
-//   image: image.files[0],
-// }
-  
-  console.log('formData', formData)
-fetch("http://localhost:5678/api/works", {
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${user.token}`,
-  },
-  body: formData,
-  // body: newProject,
-})
-  .then(data => {
-    console.log('Réponse du serveur:', data);
+  console.log('formData', formData);
+  fetch('http://localhost:5678/api/works', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+    body: formData,
   })
-  .catch(error => {
-    console.error("Une erreur s'est produite :", error);
-  });
-
+    .then((responseData) => {
+      console.log('Réponse du serveur:', responseData);
+      fetchProjects();
+    })
+    .catch((error) => {
+      console.error("Une erreur s'est produite :", error);
+    });
 });
