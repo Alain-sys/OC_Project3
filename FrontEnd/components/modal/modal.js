@@ -93,6 +93,11 @@ const title = document.getElementById('title');
 const image = document.getElementById('picture-container__select-image');
 const category = document.getElementById('categories-select');
 const user = JSON.parse(localStorage.getItem('user'));
+// if (title.value.length > 0 && category.value > 0) {
+//   console.log('good');
+// } else {
+//   console.log('bad');
+// }
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
