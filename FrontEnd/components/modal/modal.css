@@ -120,15 +120,36 @@
 }
 
 .picture-container {
+  width: 420px;
+  display: flex;
+  justify-content: center;
+  margin: 36px 0 30px 0;
+  border-radius: 3px;
+  background-color: #e8f1f6;
+}
+
+.picture-container__image-preview {
+  display: none;
+}
+
+.picture-container__image-preview.active {
+  display: block;
+  width: 129px;
+  height: 169px;
+  object-fit: cover;
+}
+
+.picture-container__image-options {
+  display: none;
+}
+
+.picture-container__image-options.active {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 7px;
-  margin: 36px 0 30px 0;
-  padding: 13px 131px 20px 131px;
-  border-radius: 3px;
-  background-color: #e8f1f6;
+  margin: 18px 0 20px 0;
 }
 
 .picture-container__icon {

@@ -68,10 +68,13 @@
             <form class="modal-content--new-project" action="">
               <h3 class="modal-content__title">Ajout photo</h3>
               <div class="picture-container">
-                <i class="fa-regular fa-image picture-container__icon"></i>
-                <label for="picture-container__select-image" class="picture-container__label"> + Ajouter photo</label>
-                <input type="file" id="picture-container__select-image" class="picture-container__input" />
-                <p class="picture-container__text">jpg, png : 4mo max</p>
+                <img class="picture-container__image-preview" src="#" alt="Image Preview" />
+                <div class="picture-container__image-options">
+                  <i class="fa-regular fa-image picture-container__icon"></i>
+                  <label for="picture-container__select-image" class="picture-container__label"> + Ajouter photo</label>
+                  <input type="file" id="picture-container__select-image" class="picture-container__input" />
+                  <p class="picture-container__text">jpg, png : 4mo max</p>
+                </div>
               </div>
               <div class="new-project-description">
                 <div class="new-project-input-container">

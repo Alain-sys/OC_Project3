@@ -15,6 +15,9 @@ btnAddProject.addEventListener('click', (e) => {
   modalContentGallery.classList.remove('active');
   modalPrevBtn.classList.add('active');
   newProjectContent.classList.add('active');
+  imagePreview.classList.remove('active');
+  imageOptions.classList.add('active');
+  image.value = '';
 });
 
 modalPrevBtn.addEventListener('click', () => {
@@ -116,4 +119,25 @@ form.addEventListener('submit', (e) => {
     .catch((error) => {
       console.error("Une erreur s'est produite :", error);
     });
+
+  modalContentGallery.classList.add('active');
+  modalPrevBtn.classList.remove('active');
+  newProjectContent.classList.remove('active');
+});
+
+/****************** Preview image */
+const imagePreview = document.querySelector('.picture-container__image-preview');
+const imageOptions = document.querySelector('.picture-container__image-options');
+
+image.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      imagePreview.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+    imageOptions.classList.remove('active');
+    imagePreview.classList.add('active');
+  }
 });
