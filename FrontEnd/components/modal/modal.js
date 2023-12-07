@@ -9,6 +9,7 @@ const btnAddProject = document.querySelector('.modal--add-project');
 const modalContentGallery = document.querySelector('.modal-content-gallery');
 const newProjectContent = document.querySelector('.modal-content--new-project');
 const modalPrevBtn = document.querySelector('.modal--prev');
+const btnAddNewProject = document.querySelector('.modal--add-new-project');
 
 btnAddProject.addEventListener('click', (e) => {
   e.preventDefault();
@@ -18,6 +19,7 @@ btnAddProject.addEventListener('click', (e) => {
   imagePreview.classList.remove('active');
   imageOptions.classList.add('active');
   image.value = '';
+  newProjectValidator();
 });
 
 modalPrevBtn.addEventListener('click', () => {
@@ -29,6 +31,7 @@ modalPrevBtn.addEventListener('click', () => {
 editBtn.addEventListener('click', () => {
   newProjectContent.classList.remove('active');
   modalContentGallery.classList.add('active');
+  modalPrevBtn.classList.remove('active');
   modal.showModal();
 });
 
@@ -54,7 +57,7 @@ export function modalProjectsTest() {
     projectData.map((item) => {
       projects.innerHTML += `
       <div class="modal-card">
-        <button class="modal-card--delete" data-id="${item.id}">delete</button>
+        <button class="modal-card--delete" data-id="${item.id}"><i class="fa-solid fa-trash-can modal-card--delete-icon"></i></button>
         <img src="${item.imageUrl}" alt="${item.title}">
       </div>
     `;
@@ -93,23 +96,35 @@ const title = document.getElementById('title');
 const image = document.getElementById('picture-container__select-image');
 const category = document.getElementById('categories-select');
 const user = JSON.parse(localStorage.getItem('user'));
-// if (title.value.length > 0 && category.value > 0) {
-//   console.log('good');
-// } else {
-//   console.log('bad');
-// }
+
+function newProjectValidator() {
+  if (title.value.trim() === '' || category.value.trim() === '' || !image.files[0]) {
+    btnAddNewProject.disabled = true;
+    btnAddNewProject.classList.remove('active');
+  } else {
+    btnAddNewProject.disabled = false;
+    btnAddNewProject.classList.add('active');
+  }
+}
+
+title.addEventListener('input', newProjectValidator);
+category.addEventListener('input', newProjectValidator);
+image.addEventListener('change', newProjectValidator);
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  console.log(image);
-  console.log(user.token);
+
+  const maxFileSize = 4 * 1024 * 1024;
+  if (image.files[0].size > maxFileSize) {
+    alert("La taille de l'image dépasse la limite de 4 Mo");
+    return;
+  }
 
   const formData = new FormData();
   formData.append('title', title.value);
   formData.append('category', category.value);
   formData.append('image', image.files[0]);
 
-  console.log('formData', formData);
   fetch('http://localhost:5678/api/works', {
     method: 'POST',
     headers: {
@@ -118,7 +133,6 @@ form.addEventListener('submit', (e) => {
     body: formData,
   })
     .then((responseData) => {
-      console.log('Réponse du serveur:', responseData);
       fetchProjects();
     })
     .catch((error) => {
