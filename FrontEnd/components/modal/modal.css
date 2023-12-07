@@ -82,6 +82,10 @@
   cursor: pointer;
 }
 
+.modal-card--delete:hover {
+  opacity: 0.7;
+}
+
 .modal-card--delete-icon {
   pointer-events: none;
   color: #fff;
@@ -231,11 +235,15 @@
   cursor: not-allowed !important;
 }
 
+.modal--add-new-project:hover {
+  opacity: 1;
+}
+
 .modal--add-new-project.active {
   background-color: #1d6154;
   cursor: pointer !important;
 }
 
-.modal--add-new-project:hover {
-  opacity: 1;
+.modal--add-new-project.active:hover {
+  opacity: 0.7;
 }
