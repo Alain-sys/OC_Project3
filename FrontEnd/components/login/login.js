@@ -1,3 +1,4 @@
+// @ts-nocheck
 function isValidEmail(email) {
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   return emailPattern.test(email);
@@ -25,15 +26,9 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('La requête a échoué');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        localStorage.setItem('user', JSON.stringify(data));
+      .then((response) => response.json())
+      .then((userData) => {
+        localStorage.setItem('user', JSON.stringify(userData));
         window.location.href = '../index.html';
       })
       .catch((error) => {

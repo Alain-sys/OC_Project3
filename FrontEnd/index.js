@@ -1,7 +1,15 @@
-import { modalProjectsTest } from './components/modal/modal.js';
+// @ts-nocheck
+import { modalProjectsList } from './components/modal/modal.js';
 
 const gallery = document.querySelector('.gallery');
+const loginBtn = document.querySelector('.menu__login');
+const logoutBtn = document.querySelector('.menu__logout');
+const banner = document.querySelector('.banner');
+const editBtn = document.querySelector('.project-headline__edit-btn');
+export const user = JSON.parse(localStorage.getItem('user'));
+
 export let projectData; // Projects of the API/works here for uses in other functions
+
 export function galleryProjects(btnId) {
   const projectFiltered = projectData.reduce((result, item) => {
     if (item.category.id === btnId) {
@@ -26,16 +34,11 @@ export function galleryProjects(btnId) {
 
 export function fetchProjects() {
   fetch('http://localhost:5678/api/works')
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('La requête a échoué');
-      }
-      return response.json();
-    })
+    .then((response) => response.json())
     .then((responseData) => {
       projectData = responseData;
       galleryProjects();
-      modalProjectsTest();
+      modalProjectsList();
     })
     .catch((error) => {
       console.error("Une erreur s'est produite :", error);
@@ -44,13 +47,6 @@ export function fetchProjects() {
 fetchProjects();
 
 /*LOGIN BTN start*/
-const loginBtn = document.querySelector('.menu__login');
-const logoutBtn = document.querySelector('.menu__logout');
-const banner = document.querySelector('.banner');
-const editBtn = document.querySelector('.project-headline__edit-btn');
-
-const user = JSON.parse(localStorage.getItem('user'));
-
 if (user) {
   logoutBtn.classList.add('active');
   banner.classList.add('active');
