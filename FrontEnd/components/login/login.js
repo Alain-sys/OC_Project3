@@ -9,11 +9,16 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
 
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const emailError = document.querySelector('.email-error');
-  const passwordError = document.querySelector('.password-error');
+
+  function updateErrorMessages(active) {
+    const errorMessageList = document.querySelectorAll('.error-message');
+    errorMessageList.forEach((item) => {
+      item.classList[active ? 'add' : 'remove']('active');
+    });
+  }
 
   if (isValidEmail(email)) {
-    emailError.classList.remove('active');
+    updateErrorMessages(false);
     const formData = {
       email: email,
       password: password,
@@ -26,16 +31,21 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((userData) => {
         localStorage.setItem('user', JSON.stringify(userData));
         window.location.href = '../index.html';
       })
       .catch((error) => {
         console.error("Une erreur s'est produite :", error);
-        passwordError.classList.add('active');
+        updateErrorMessages(true);
       });
   } else {
-    emailError.classList.add('active');
+    updateErrorMessages(true);
   }
 });

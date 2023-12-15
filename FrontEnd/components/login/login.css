@@ -32,20 +32,18 @@ form a {
   text-decoration: underline;
 }
 
-.input-error {
+.error-message {
   color: red;
   font-size: 0.8rem;
   margin-top: 8px;
   font-weight: bold;
 }
 
-.email-error,
-.password-error {
+.error-message {
   display: none;
 }
 
-.email-error.active,
-.password-error.active {
+.error-message.active {
   display: block;
 }
 
